@@ -1,0 +1,11 @@
+parameters:
+  - name: stage_name
+    default: stage-paramter
+    type: string
+
+jobs:
+- job: job1
+  continueOnError: true
+  displayName: job1
+  steps:
+  - script: echo ${{parameters.stage_name}}

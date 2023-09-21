@@ -1,0 +1,35 @@
+trigger:
+  branches:
+   include:
+     - main
+  paths:
+    include:
+    - /variable-group-main.yaml
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+  - group: Stg_variable_group1
+  - group: Stg_variable_group2
+  - group: Stg_variable_group3
+
+
+stages:
+- stage: stg1
+  jobs:
+  - template: /variable-group-template.yaml
+    parameters:
+      stage_name: $(stage_name1) 
+  
+- stage: stg2
+  jobs:
+  - template: /variable-group-template.yaml
+    parameters:
+      stage_name: $(stage_name2)
+
+- stage: stg3
+  jobs:
+  - template: /variable-group-template.yaml
+    parameters:
+      stage_name: $(stage_name3)

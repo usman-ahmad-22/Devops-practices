@@ -1,0 +1,20 @@
+parameters:
+  - name: stage_name
+    default: stage-paramter
+    type: string
+  - name: env
+    default: ''
+    type: string
+
+jobs:
+  - job: job1
+    displayName: job1
+    continueOnError: true
+    workspace:
+      clean: outputs
+    steps:
+    - script: echo ${{parameters.stage_name}}
+      displayName: parameter1
+    - script: echo ${{parameters.env}}
+      displayName: parameter2
+      

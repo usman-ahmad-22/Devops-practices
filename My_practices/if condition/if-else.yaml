@@ -1,0 +1,12 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    inlclude:
+    - My-Practices/if condition/if-else.yaml
+pool:
+  vmimage: ubuntu-latest
+
+parameters:
+- name: enviro

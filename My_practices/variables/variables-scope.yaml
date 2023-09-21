@@ -1,0 +1,31 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - /My_practices/variables/variables-scope.yaml
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- name: pipevar
+  value: "this pipeline var" # this pipeline level var 
+- group: pipeline-basic-var-19-Jul
+
+stages:
+- stage: stg1
+  variables: 
+    stg_var: "this stage level"   # this stage level
+  jobs:
+  - job: job1
+    displayName: 1st_job
+    continueOnError: true
+    variables:  # this job level
+      job_var: "this job level"
+    workspace:
+      clean: outputs
+    steps:
+    - script: echo $(Gvar1) $(pipevar) $(stg_var) $(job_var)
+    

@@ -1,0 +1,6 @@
+variables:
+- name: var_1
+  value: 1
+- name: var_2
+  value: 2
+- group: pipeline_basic_var  # this will directly link our main pipeline file to variable-grooup so we dont need to link it manualy by navigation 

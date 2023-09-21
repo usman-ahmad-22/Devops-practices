@@ -1,0 +1,12 @@
+trigger:
+  branches:
+    include:
+      - main
+  paths:
+    include: 
+      - /loop/main.yaml
+
+pool:
+  vmImage: ubuntu-latest
+
+stages:

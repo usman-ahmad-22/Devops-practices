@@ -1,0 +1,28 @@
+trigger:
+ branches:
+   include:
+     - main
+ paths:
+  include:
+    - /My_practices/parameters/main-stages.yaml
+pool:
+  vmImage: ubuntu-latest
+stages:
+  - stage: stg1
+    jobs:
+    - template: /My_practices/parameters/parameters_template.yaml
+      parameters:
+        stage_name: stage1_parameter
+        env: build
+  - stage: stg2
+    jobs:
+    - template: /My_practices/parameters/parameters_template.yaml
+      parameters:
+        stage_name: stage2-parameter
+        env: test
+  - stage: stg3
+    jobs: 
+    - template: /My_practices/parameters/parameters_template.yaml
+      parameters:
+        stage_name: stage3-parameter
+        env: deploy

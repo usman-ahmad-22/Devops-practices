@@ -1,0 +1,37 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - /My_practices/Dependencies/jobs dependencies with each other.yaml
+
+pool:
+  vmImage: ubuntu-latest
+  
+# job5- job4 - job3 - job2 - job1
+jobs:
+- job: job1
+  dependsOn: job2
+  steps:
+  - script: echo Hello, world!
+    displayName: job1
+- job: job2
+  dependsOn: job3
+  steps:
+  - script: echo Hello, world!
+    displayName: job2
+- job: job3
+  dependsOn: job4
+  steps:
+  - script: echo Hello, world!
+    displayName: job3
+- job: job4
+  dependsOn: job5
+  steps:
+  - script: echo Hello, world!
+    displayName: job4
+- job: job5
+  steps:
+  - script: echo Hello, world!
+    displayName: job5

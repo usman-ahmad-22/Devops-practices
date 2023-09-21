@@ -1,0 +1,62 @@
+trigger:
+  branches:
+    include:
+    - main
+  paths:
+    include:
+    - /My_practices/Dependencies/stages_dependencies.yaml
+
+pool:
+  vmImage: ubuntu-latest
+# starting point -> stages component A, Component B, Component C -> produce artifacts -> deployment or rolling back
+stages:
+- stage : SP
+  jobs:
+  - job: start_Job
+    displayName: start_Job
+  displayName: starting-piont
+
+- stage: A
+  dependsOn: SP
+  jobs:
+  - job: build_job
+    displayName: build_job
+  displayName: stage component A
+
+- stage: B
+  dependsOn: SP
+  jobs:
+  - job: test_job1
+    displayName: test_job1
+  displayName: stage component B
+
+- stage: C
+  dependsOn: SP
+  jobs:
+  - job: test_job3
+    displayName: test_job3
+  displayName: stage-component C
+
+- stage: produce_artifacts
+  dependsOn:
+  - A
+  - B
+  - C
+  jobs:
+  - job: runABC_jobs
+  displayName: produce_artifacts
+  
+- stage: DEPLOYMENT
+  dependsOn: produce_artifacts
+  condition: succeeded('produce_artifacts')
+  jobs:
+  - job: deployment_job
+    displayName: deployment_job
+  displayName: DEPLOYMENT
+
+- stage: Rolling_Back
+  dependsOn: produce_artifacts
+  condition: failed('produce_artifacts')
+  jobs:
+    - job: Rolling_Back_job
+  displayName: Rolling_Back  
